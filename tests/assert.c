@@ -2,9 +2,9 @@
 #include "../linkedlist.h"
 #include "assert.h"
 
-void display_test_result(Status actual, char *message)
+void display_test_result(Status actual, Status expected, char *message)
 {
-  char *symbol = actual == Success ? "✓" : "✗";
+  char *symbol = actual == expected ? "✓" : "✗";
   printf("%s %s\n", symbol, message);
 }
 
