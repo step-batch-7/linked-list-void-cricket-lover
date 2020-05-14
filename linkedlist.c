@@ -233,6 +233,21 @@ List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
   return new_list;
 }
 
+Status add_unique(List_ptr list, Element element, Matcher matcher)
+{
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->first;
+  while (node_pair.current != NULL && !(*matcher)(node_pair.current->element, element))
+  {
+    node_pair.current = node_pair.current->next;
+  }
+  if (node_pair.current == NULL)
+  {
+    return add_to_list(list, element);
+  }
+  return Failure;
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;
