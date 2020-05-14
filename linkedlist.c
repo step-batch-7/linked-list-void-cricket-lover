@@ -248,6 +248,29 @@ Status add_unique(List_ptr list, Element element, Matcher matcher)
   return Failure;
 }
 
+Element void_square(Element a)
+{
+  int square_of_a = *(int *)a * *(int *)a;
+  Element square = malloc(sizeof(int));
+  *(int *)square = square_of_a;
+  return square;
+}
+
+List_ptr map(List_ptr list, Mapper mapper)
+{
+  List_ptr new_list = create_list();
+  Element present_element = NULL;
+  Prev_Current_Pair pair;
+  pair.current = list->first;
+  while (pair.current != NULL)
+  {
+    present_element = (*mapper)(pair.current->element);
+    add_to_list(new_list, present_element);
+    pair.current = pair.current->next;
+  }
+  return new_list;
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;

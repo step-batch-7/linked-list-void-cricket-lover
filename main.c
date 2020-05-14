@@ -12,7 +12,7 @@ int main()
   add_to_list(list, &number[1]);
   insert_at(list, &number[2], 1);
   display_list(list, &display_int);
-  add_unique(list, &number[3], &match_int);
-  display_list(list, &display_int);
+  List_ptr new_list = map(list, &void_square);
+  display_list(new_list, &display_int);
   return 0;
 }
