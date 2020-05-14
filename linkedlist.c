@@ -46,7 +46,7 @@ Status add_to_start(List_ptr list, Element value)
   return Success;
 }
 
-Status add_to_list(List_ptr list, Element value)
+Status add_to_last(List_ptr list, Element value)
 {
   Node_ptr new_node = create_node(value, NULL);
   if (new_node == NULL)

@@ -52,7 +52,7 @@ List_ptr create_list(void);
 void display_list(List_ptr list, DisplayData displayer);
 void display_int(Element data);
 
-Status add_to_list(List_ptr, Element);
+Status add_to_last(List_ptr, Element);
 Status add_to_start(List_ptr, Element);
 Status insert_at(List_ptr, Element element, int position);
 
