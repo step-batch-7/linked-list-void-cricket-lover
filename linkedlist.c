@@ -14,7 +14,7 @@ void display_list(List_ptr list, DisplayData displayer)
     (*displayer)(node_pair.current->element);
     node_pair.current = node_pair.current->next;
   }
-  printf("total number of nodes are %d\n", list->length);
+  printf("total number of nodes are %d\n\n", list->length);
 }
 
 Node_ptr create_node(Element value, Node_ptr next_reference)
@@ -183,6 +183,28 @@ Element remove_at(List_ptr list, int position)
   node_pair.prev->next = node_pair.current->next;
   list->length--;
   return node_pair.current->element;
+}
+
+Status match_int(Element expected, Element actual)
+{
+  return *(int *)actual == *(int *)expected;
+}
+
+Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
+{
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->first;
+  int position = 0;
+  while (node_pair.current != NULL && !(*matcher)(node_pair.current->element, element))
+  {
+    node_pair.current = node_pair.current->next;
+    position++;
+  }
+  if (node_pair.current == NULL)
+  {
+    return NULL;
+  }
+  return remove_at(list, position);
 }
 
 Status clear_list(List_ptr list)
