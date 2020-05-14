@@ -66,6 +66,42 @@ Status add_to_list(List_ptr list, Element value)
   return Success;
 }
 
+Status insert_at(List_ptr list, Element element, int position)
+
+{
+  if (position > list->length || position < 0)
+  {
+    return Failure;
+  }
+  if (position == 0)
+  {
+    return add_to_start(list, element);
+  }
+  if (position == list->length)
+  {
+    return add_to_list(list, element);
+  }
+
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->first;
+  for (int i = 1; i < position; i++)
+  {
+    if (node_pair.current->next != NULL)
+    {
+      node_pair.current = node_pair.current->next;
+    }
+  }
+
+  Node_ptr new_node = create_node(element, node_pair.current->next);
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
+  node_pair.current->next = new_node;
+  list->length++;
+  return Success;
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;
