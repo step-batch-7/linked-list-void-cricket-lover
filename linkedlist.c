@@ -66,6 +66,26 @@ Status add_to_list(List_ptr list, Element value)
   return Success;
 }
 
+Status clear_list(List_ptr list)
+{
+  Prev_Current_Pair pair;
+  if (list->length == 0)
+  {
+    return Failure;
+  }
+  pair.prev = list->first;
+  while (pair.prev != NULL)
+  {
+    pair.current = pair.prev->next;
+    free(pair.prev);
+    pair.prev = pair.current;
+  }
+  list->first = NULL;
+  list->last = NULL;
+  list->length = 0;
+  return Success;
+}
+
 List_ptr create_list()
 {
   List_ptr new_list = malloc(sizeof(LinkedList));

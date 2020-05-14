@@ -8,6 +8,7 @@ int main()
   *(number + 1) = 4;
   add_to_start(list, number + 0);
   add_to_list(list, number + 1);
+  clear_list(list);
   display_list(list, &display_int);
   return 0;
 }
