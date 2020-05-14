@@ -313,6 +313,17 @@ Element reduce(List_ptr list, Element element, Reducer reducer)
   return element;
 }
 
+void forEach(List_ptr list, ElementProcessor processor)
+{
+  Prev_Current_Pair pair;
+  pair.current = list->first;
+  while (pair.current != NULL)
+  {
+    (*processor)(pair.current->element);
+    pair.current = pair.current->next;
+  }
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;
