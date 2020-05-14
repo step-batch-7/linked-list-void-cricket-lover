@@ -280,7 +280,6 @@ Status void_filter_even(Element a)
 List_ptr filter(List_ptr list, Predicate predicate)
 {
   List_ptr new_list = create_list();
-  Element present_element = NULL;
   Prev_Current_Pair pair;
   pair.current = list->first;
   while (pair.current != NULL)
@@ -292,6 +291,26 @@ List_ptr filter(List_ptr list, Predicate predicate)
     pair.current = pair.current->next;
   }
   return new_list;
+}
+
+Element void_sum(Element element, Element context)
+{
+  int *number = (int *)context;
+  *number = *(int *)context + *(int *)element;
+  return number;
+}
+
+Element reduce(List_ptr list, Element element, Reducer reducer)
+{
+  List_ptr new_list = create_list();
+  Prev_Current_Pair pair;
+  pair.current = list->first;
+  while (pair.current != NULL)
+  {
+    element = (*reducer)(pair.current->element, element);
+    pair.current = pair.current->next;
+  }
+  return element;
 }
 
 Status clear_list(List_ptr list)
