@@ -102,6 +102,20 @@ Status insert_at(List_ptr list, Element element, int position)
   return Success;
 }
 
+List_ptr reverse(List_ptr list)
+{
+  List_ptr new_list = create_list();
+  Prev_Current_Pair pair;
+  pair.prev = list->first;
+  while (pair.prev != NULL)
+  {
+    pair.current = pair.prev->next;
+    add_to_start(new_list, pair.prev->element);
+    pair.prev = pair.current;
+  }
+  return new_list;
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;

@@ -11,5 +11,7 @@ int main()
   add_to_list(list, number + 1);
   insert_at(list, number + 2, 1);
   display_list(list, &display_int);
+  List_ptr reversed_list = reverse(list);
+  display_list(reversed_list, &display_int);
   return 0;
 }
