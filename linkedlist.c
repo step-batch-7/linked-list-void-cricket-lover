@@ -134,6 +134,30 @@ Element remove_from_start(List_ptr list) // Returns Element which was removed
   return node_pair.prev->element;
 }
 
+Element remove_from_end(List_ptr list)
+{
+  if (list->length == 0)
+  {
+    return NULL;
+  }
+  if (list->length == 1)
+  {
+    return remove_from_start(list);
+  }
+  Prev_Current_Pair node_pair;
+  node_pair.prev = NULL;
+  node_pair.current = list->first;
+  while (node_pair.current != list->last)
+  {
+    node_pair.prev = node_pair.current;
+    node_pair.current = node_pair.current->next;
+  }
+  list->last = node_pair.prev;
+  list->last->next = NULL;
+  list->length--;
+  return node_pair.current->element;
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;
