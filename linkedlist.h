@@ -47,6 +47,7 @@ typedef void (*ElementProcessor)(Element);
 typedef Status (*Matcher)(Element, Element);
 typedef void (*DisplayData)(Element);
 
+Node_ptr create_node(Element value, Node_ptr next_reference);
 List_ptr create_list(void);
 void display_list(List_ptr list, DisplayData displayer);
 void display_int(Element data);

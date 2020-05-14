@@ -2,7 +2,7 @@
 
 void display_int(Element data)
 {
-  printf("%d ", *(int *)data);
+  printf("value is %d\n", *(int *)data);
 }
 
 void display_list(List_ptr list, DisplayData displayer)
@@ -15,6 +15,35 @@ void display_list(List_ptr list, DisplayData displayer)
     node_pair.current = node_pair.current->next;
   }
   printf("total number of nodes are %d\n", list->length);
+}
+
+Node_ptr create_node(Element value, Node_ptr next_reference)
+{
+  Node_ptr new_node = malloc(sizeof(Node));
+  if (new_node == NULL)
+  {
+    return new_node;
+  }
+  new_node->element = value;
+  new_node->next = next_reference;
+  return new_node;
+}
+
+Status add_to_start(List_ptr list, Element value)
+{
+  Node_ptr new_node = create_node(value, list->first);
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
+  if (list->first == NULL)
+  {
+    list->last = new_node;
+  }
+
+  list->first = new_node;
+  list->length++;
+  return Success;
 }
 
 List_ptr create_list()
