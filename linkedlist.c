@@ -271,6 +271,29 @@ List_ptr map(List_ptr list, Mapper mapper)
   return new_list;
 }
 
+Status void_filter_even(Element a)
+{
+  int number = *(int *)a;
+  return number % 2 == 0 ? Success : Failure;
+}
+
+List_ptr filter(List_ptr list, Predicate predicate)
+{
+  List_ptr new_list = create_list();
+  Element present_element = NULL;
+  Prev_Current_Pair pair;
+  pair.current = list->first;
+  while (pair.current != NULL)
+  {
+    if ((*predicate)(pair.current->element))
+    {
+      add_to_list(new_list, pair.current->element);
+    }
+    pair.current = pair.current->next;
+  }
+  return new_list;
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;

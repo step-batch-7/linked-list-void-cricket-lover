@@ -60,6 +60,7 @@ List_ptr reverse(List_ptr);
 
 Element void_square(Element);
 List_ptr map(List_ptr, Mapper);
+Status void_filter_even(Element a);
 List_ptr filter(List_ptr, Predicate);
 Element reduce(List_ptr, Element, Reducer);
 void forEach(List_ptr, ElementProcessor processor);
