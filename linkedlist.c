@@ -46,6 +46,26 @@ Status add_to_start(List_ptr list, Element value)
   return Success;
 }
 
+Status add_to_list(List_ptr list, Element value)
+{
+  Node_ptr new_node = create_node(value, NULL);
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
+  if (list->first == NULL)
+  {
+    list->first = new_node;
+  }
+  else
+  {
+    list->last->next = new_node;
+  }
+  list->last = new_node;
+  list->length++;
+  return Success;
+}
+
 List_ptr create_list()
 {
   List_ptr new_list = malloc(sizeof(LinkedList));

@@ -3,9 +3,11 @@
 int main()
 {
   List_ptr list = create_list();
-  int *number1 = malloc(sizeof(int));
-  *number1 = 3;
-  add_to_start(list, number1);
+  int *number = malloc(sizeof(int) * 2);
+  *(number + 0) = 3;
+  *(number + 1) = 4;
+  add_to_start(list, number + 0);
+  add_to_list(list, number + 1);
   display_list(list, &display_int);
   return 0;
 }
