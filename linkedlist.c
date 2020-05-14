@@ -158,6 +158,33 @@ Element remove_from_end(List_ptr list)
   return node_pair.current->element;
 }
 
+Element remove_at(List_ptr list, int position)
+{
+  if (position > list->length || position < 0)
+  {
+    return NULL;
+  }
+  if (position == 0)
+  {
+    return remove_from_start(list);
+  }
+  if (position == list->length - 1)
+  {
+    return remove_from_end(list);
+  }
+  Prev_Current_Pair node_pair;
+  node_pair.prev = NULL;
+  node_pair.current = list->first;
+  for (int i = 0; i < position; i++)
+  {
+    node_pair.prev = node_pair.current;
+    node_pair.current = node_pair.current->next;
+  }
+  node_pair.prev->next = node_pair.current->next;
+  list->length--;
+  return node_pair.current->element;
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;
