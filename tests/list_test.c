@@ -25,10 +25,30 @@ void test_add_to_last(void)
   display_test_result(result, "should add one element to the last of the list, when the list is not empty");
 }
 
+void test_add_to_start(void)
+{
+  printf("#add_to_start\n");
+  List_ptr list = create_list();
+  int *number = malloc(sizeof(int) * 2);
+  *(number + 0) = 3;
+  int *expected[2] = {number + 0};
+  add_to_start(list, number);
+  Status result = assert_lists(expected, 1, list, &assert_int);
+  display_test_result(result, "should add one element to the start of the list, when the list is empty");
+
+  *(number + 1) = 4;
+  expected[0] = number + 1;
+  expected[1] = number + 0;
+  add_to_start(list, number + 1);
+  result = assert_lists(expected, 2, list, &assert_int);
+  display_test_result(result, "should add one element to the start of the list, when the list is not empty");
+}
+
 void run_tests(void)
 {
   printf("running tests......\n\n");
   test_add_to_last();
+  test_add_to_start();
   printf("\n......finished tests\n");
 }
 
