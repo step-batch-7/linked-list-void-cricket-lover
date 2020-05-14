@@ -116,6 +116,24 @@ List_ptr reverse(List_ptr list)
   return new_list;
 }
 
+Element remove_from_start(List_ptr list) // Returns Element which was removed
+{
+  if (list->length == 0)
+  {
+    return NULL;
+  }
+  if (list->length == 1)
+  {
+    list->last = NULL;
+  }
+
+  Prev_Current_Pair node_pair;
+  node_pair.prev = list->first;
+  list->first = list->first->next;
+  list->length--;
+  return node_pair.prev->element;
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;
