@@ -9,7 +9,6 @@ The Linked List maintains the element references in a sequence and provides conv
 #ifndef __LINKEDLIST_H_
 #define __LINKEDLIST_H_
 
-
 typedef enum
 {
   Failure,
@@ -26,6 +25,12 @@ typedef struct node
 
 typedef Node *Node_ptr;
 
+typedef struct
+{
+  Node_ptr prev;
+  Node_ptr current;
+} Prev_Current_Pair;
+
 typedef struct linklist
 {
   Node *first;
@@ -40,8 +45,11 @@ typedef Status (*Predicate)(Element);
 typedef Element (*Reducer)(Element, Element);
 typedef void (*ElementProcessor)(Element);
 typedef Status (*Matcher)(Element, Element);
+typedef void (*DisplayData)(Element);
 
 List_ptr create_list(void);
+void display_list(List_ptr list, DisplayData displayer);
+void display_int(Element data);
 
 Status add_to_list(List_ptr, Element);
 Status add_to_start(List_ptr, Element);
