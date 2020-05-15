@@ -16,7 +16,7 @@ Status assert_lists(Element expected, int length, List_ptr actual, Comparator co
   }
   int index = 0;
   Node_ptr p_walk = actual->first;
-  while (p_walk != NULL && (*comparator)(p_walk, expected, index))
+  while (p_walk != NULL && (*comparator)(p_walk->element, expected, index))
   {
     p_walk = p_walk->next;
     index++;

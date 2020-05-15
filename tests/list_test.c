@@ -2,9 +2,9 @@
 #include "../linkedlist.h"
 #include "assert.h"
 
-Status assert_int(Node_ptr p_walk, Element *expected, int index)
+Status assert_int(Element actual, Element *expected, int index)
 {
-  return *(int *)expected[index] == *(int *)p_walk->element;
+  return *(int *)expected[index] == *(int *)actual;
 }
 
 void test_add_to_last(void)
@@ -15,7 +15,7 @@ void test_add_to_last(void)
   int *number = malloc(sizeof(int) * 2);
   number[0] = 3;
   int *expected[2] = {&number[0]};
-  actual_status = add_to_list(list, number);
+  actual_status = add_to_list(list, &number[0]);
   result = assert_lists(expected, 1, list, &assert_int, actual_status);
   display_test_result(actual_status, result, "should add one element to the last of the list, when the list is empty");
 
