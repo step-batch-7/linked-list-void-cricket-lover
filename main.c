@@ -9,7 +9,7 @@ int main()
     return 1;
   }
   number[0] = 2;
-  number[1] = 5;
+  number[1] = 2;
   number[2] = 2;
   add_to_start(list, &number[0]);
   add_to_list(list, &number[1]);
