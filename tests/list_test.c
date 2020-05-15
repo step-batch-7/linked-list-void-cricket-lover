@@ -163,6 +163,30 @@ void test_map(void)
   display_test_result(Success, result, "should give back the list mapped with the requested mapper");
 }
 
+void test_filter(void)
+{
+  printf("#filter\n");
+  List_ptr list = create_list();
+  Status result;
+  int *expected[3] = {};
+  List_ptr actual = map(list, &void_square);
+  result = assert_lists(expected, 0, actual, &assert_int, Success);
+  display_test_result(Success, result, "should give back the empty list when an empty list is given");
+
+  int *number = malloc(sizeof(int) * 3);
+  number[0] = 3;
+  number[1] = 4;
+  number[2] = 5;
+
+  expected[0] = &number[1];
+  add_to_list(list, &number[0]);
+  add_to_list(list, &number[1]);
+  add_to_list(list, &number[2]);
+  actual = filter(list, &void_filter_even);
+  result = assert_lists(expected, 1, actual, &assert_int, Success);
+  display_test_result(Success, result, "should give back the list filtered with the requested predicate");
+}
+
 void run_tests(void)
 {
   printf("running tests......\n\n");
@@ -171,6 +195,7 @@ void run_tests(void)
   test_insert_at();
   test_reverse();
   test_map();
+  test_filter();
   printf("\n......finished tests\n");
 }
 
