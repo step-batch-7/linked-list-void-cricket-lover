@@ -8,7 +8,7 @@ void display_test_result(Status actual, Status expected, char *message)
   printf("%s %s\n", symbol, message);
 }
 
-Status assert_lists(Element expected, int length, List_ptr actual, Comparator comparator)
+Status assert_lists(Element expected, int length, List_ptr actual, Comparator comparator, Status actual_status)
 {
   if (actual->length != length)
   {
@@ -21,5 +21,6 @@ Status assert_lists(Element expected, int length, List_ptr actual, Comparator co
     p_walk = p_walk->next;
     index++;
   }
-  return p_walk == NULL ? Success : Failure;
+  Status status = p_walk == NULL ? Success : Failure;
+  return status == actual_status;
 }

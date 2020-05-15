@@ -6,6 +6,6 @@ typedef char *Char_ptr;
 
 void display_test_result(Status actual, Status expected, char *message);
 typedef Status (*Comparator)(Node_ptr p_walk, Element *expected, int index);
-Status assert_lists(Element expected, int length, List_ptr actual, Comparator comparator);
+Status assert_lists(Element expected, int length, List_ptr actual, Comparator comparator, Status actual_status);
 
 #endif

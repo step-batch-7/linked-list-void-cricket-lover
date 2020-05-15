@@ -11,8 +11,6 @@ int main()
   add_to_list(list, &number[1]);
   insert_at(list, &number[2], 1);
   display_list(list, &display_int);
-  // Element total = reduce(list, &number[0], &void_sum);
-  // display_int(total);
   forEach(list, &display_int);
   return 0;
 }
