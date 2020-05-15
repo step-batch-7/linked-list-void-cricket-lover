@@ -99,6 +99,31 @@ void insert_at_end(List_ptr list, Int_ptr *expected)
   display_test_result(actual_status, result, "should insert at last position when the position is equal to the length of the list");
 }
 
+void test_reverse(void)
+{
+  printf("#reverse\n");
+  List_ptr list = create_list();
+  Status actual_status, result;
+  int *number = malloc(sizeof(int) * 3);
+  number[0] = 3;
+  number[1] = 4;
+  number[2] = 5;
+  int *expected[3] = {};
+  List_ptr actual = reverse(list);
+  result = assert_lists(expected, 0, actual, &assert_int, Success);
+  display_test_result(Success, result, "should give back the empty list when an empty list is given");
+
+  expected[0] = &number[2];
+  expected[1] = &number[1];
+  expected[2] = &number[0];
+  add_to_list(list, &number[0]);
+  add_to_list(list, &number[1]);
+  add_to_list(list, &number[2]);
+  actual = reverse(list);
+  result = assert_lists(expected, 3, actual, &assert_int, Success);
+  display_test_result(Success, result, "should reverse and give back the reversed list");
+}
+
 void test_insert_at(void)
 {
   printf("#insert_at\n");
@@ -115,6 +140,7 @@ void run_tests(void)
   test_add_to_last();
   test_add_to_start();
   test_insert_at();
+  test_reverse();
   printf("\n......finished tests\n");
 }
 
