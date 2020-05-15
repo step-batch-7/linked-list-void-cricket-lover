@@ -207,30 +207,23 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
   return remove_at(list, position);
 }
 
-List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher) // Returns List of removed elements
+List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
 {
-  List_ptr new_list = create_list();
-  Prev_Current_Pair node_pair;
-  node_pair.prev = NULL;
-  node_pair.current = list->first;
+  Node_ptr p_walk = list->first;
   int position = 0;
-  Node_ptr removed_element;
-  while (node_pair.current != NULL)
+  List_ptr removed_elements_list = create_list();
+  while (p_walk != NULL)
   {
-    if ((*matcher)(node_pair.current->element, element))
+    if (matcher(p_walk->element, element))
     {
-      removed_element = remove_at(list, position);
-      add_to_list(new_list, removed_element);
+      remove_at(list, position);
+      add_to_list(removed_elements_list, element);
+      position--;
     }
-    else
-    {
-      node_pair.prev = node_pair.current;
-      position++;
-    }
-    node_pair.current = node_pair.current->next;
+    p_walk = p_walk->next;
+    position++;
   }
-
-  return new_list;
+  return removed_elements_list;
 }
 
 Status add_unique(List_ptr list, Element element, Matcher matcher)
