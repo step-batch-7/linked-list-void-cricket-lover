@@ -7,12 +7,12 @@ void display_int(Element data)
 
 void display_list(List_ptr list, DisplayData displayer)
 {
-  Prev_Current_Pair *node_pair = malloc(sizeof(Prev_Current_Pair));
-  node_pair->current = list->first;
-  while (node_pair->current != NULL)
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->first;
+  while (node_pair.current != NULL)
   {
-    (*displayer)(node_pair->current->element);
-    node_pair->current = node_pair->current->next;
+    (*displayer)(node_pair.current->element);
+    node_pair.current = node_pair.current->next;
   }
   printf("total number of nodes are %d\n\n", list->length);
 }
@@ -82,22 +82,22 @@ Status insert_at(List_ptr list, Element element, int position)
     return add_to_list(list, element);
   }
 
-  Prev_Current_Pair *node_pair = malloc(sizeof(Prev_Current_Pair));
-  node_pair->current = list->first;
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->first;
   for (int i = 1; i < position; i++)
   {
-    if (node_pair->current->next != NULL)
+    if (node_pair.current->next != NULL)
     {
-      node_pair->current = node_pair->current->next;
+      node_pair.current = node_pair.current->next;
     }
   }
 
-  Node_ptr new_node = create_node(element, node_pair->current->next);
+  Node_ptr new_node = create_node(element, node_pair.current->next);
   if (new_node == NULL)
   {
     return Failure;
   }
-  node_pair->current->next = new_node;
+  node_pair.current->next = new_node;
   list->length++;
   return Success;
 }
@@ -127,11 +127,11 @@ Element remove_from_start(List_ptr list) // Returns Element which was removed
     list->last = NULL;
   }
 
-  Prev_Current_Pair *node_pair = malloc(sizeof(Prev_Current_Pair));
-  node_pair->prev = list->first;
+  Prev_Current_Pair node_pair;
+  node_pair.prev = list->first;
   list->first = list->first->next;
   list->length--;
-  return node_pair->prev->element;
+  return node_pair.prev->element;
 }
 
 Element remove_from_end(List_ptr list)
@@ -144,18 +144,18 @@ Element remove_from_end(List_ptr list)
   {
     return remove_from_start(list);
   }
-  Prev_Current_Pair *node_pair = malloc(sizeof(Prev_Current_Pair));
-  node_pair->prev = NULL;
-  node_pair->current = list->first;
-  while (node_pair->current != list->last)
+  Prev_Current_Pair node_pair;
+  node_pair.prev = NULL;
+  node_pair.current = list->first;
+  while (node_pair.current != list->last)
   {
-    node_pair->prev = node_pair->current;
-    node_pair->current = node_pair->current->next;
+    node_pair.prev = node_pair.current;
+    node_pair.current = node_pair.current->next;
   }
-  list->last = node_pair->prev;
+  list->last = node_pair.prev;
   list->last->next = NULL;
   list->length--;
-  return node_pair->current->element;
+  return node_pair.current->element;
 }
 
 Element remove_at(List_ptr list, int position)
@@ -172,17 +172,17 @@ Element remove_at(List_ptr list, int position)
   {
     return remove_from_end(list);
   }
-  Prev_Current_Pair *node_pair = malloc(sizeof(Prev_Current_Pair));
-  node_pair->prev = NULL;
-  node_pair->current = list->first;
+  Prev_Current_Pair node_pair;
+  node_pair.prev = NULL;
+  node_pair.current = list->first;
   for (int i = 0; i < position; i++)
   {
-    node_pair->prev = node_pair->current;
-    node_pair->current = node_pair->current->next;
+    node_pair.prev = node_pair.current;
+    node_pair.current = node_pair.current->next;
   }
-  node_pair->prev->next = node_pair->current->next;
+  node_pair.prev->next = node_pair.current->next;
   list->length--;
-  return node_pair->current->element;
+  return node_pair.current->element;
 }
 
 Status match_int(Element expected, Element actual)
@@ -192,15 +192,15 @@ Status match_int(Element expected, Element actual)
 
 Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
 {
-  Prev_Current_Pair *node_pair = malloc(sizeof(Prev_Current_Pair));
-  node_pair->current = list->first;
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->first;
   int position = 0;
-  while (node_pair->current != NULL && !(*matcher)(node_pair->current->element, element))
+  while (node_pair.current != NULL && !(*matcher)(node_pair.current->element, element))
   {
-    node_pair->current = node_pair->current->next;
+    node_pair.current = node_pair.current->next;
     position++;
   }
-  if (node_pair->current == NULL)
+  if (node_pair.current == NULL)
   {
     return NULL;
   }
@@ -210,24 +210,24 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
 List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher) // Returns List of removed elements
 {
   List_ptr new_list = create_list();
-  Prev_Current_Pair *node_pair = malloc(sizeof(Prev_Current_Pair));
-  node_pair->prev = NULL;
-  node_pair->current = list->first;
+  Prev_Current_Pair node_pair;
+  node_pair.prev = NULL;
+  node_pair.current = list->first;
   int position = 0;
   Node_ptr removed_element;
-  while (node_pair->current != NULL)
+  while (node_pair.current != NULL)
   {
-    if ((*matcher)(node_pair->current->element, element))
+    if ((*matcher)(node_pair.current->element, element))
     {
       removed_element = remove_at(list, position);
       add_to_list(new_list, removed_element);
     }
     else
     {
-      node_pair->prev = node_pair->current;
+      node_pair.prev = node_pair.current;
       position++;
     }
-    node_pair->current = node_pair->current->next;
+    node_pair.current = node_pair.current->next;
   }
 
   return new_list;
@@ -235,13 +235,13 @@ List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
 
 Status add_unique(List_ptr list, Element element, Matcher matcher)
 {
-  Prev_Current_Pair *node_pair = malloc(sizeof(Prev_Current_Pair));
-  node_pair->current = list->first;
-  while (node_pair->current != NULL && !(*matcher)(node_pair->current->element, element))
+  Prev_Current_Pair node_pair;
+  node_pair.current = list->first;
+  while (node_pair.current != NULL && !(*matcher)(node_pair.current->element, element))
   {
-    node_pair->current = node_pair->current->next;
+    node_pair.current = node_pair.current->next;
   }
-  if (node_pair->current == NULL)
+  if (node_pair.current == NULL)
   {
     return add_to_list(list, element);
   }
@@ -252,7 +252,10 @@ Element void_square(Element a)
 {
   int square_of_a = *(int *)a * *(int *)a;
   Element square = malloc(sizeof(int));
-  *(int *)square = square_of_a;
+  if (square != NULL)
+  {
+    *(int *)square = square_of_a;
+  }
   return square;
 }
 
