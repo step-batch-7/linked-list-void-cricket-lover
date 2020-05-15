@@ -134,6 +134,35 @@ void test_insert_at(void)
   insert_at_end(list, expected);
 }
 
+void test_map(void)
+{
+  printf("#map\n");
+  List_ptr list = create_list();
+  Status result;
+  int *expected[3] = {};
+  List_ptr actual = map(list, &void_square);
+  result = assert_lists(expected, 0, actual, &assert_int, Success);
+  display_test_result(Success, result, "should give back the empty list when an empty list is given");
+
+  int *number = malloc(sizeof(int) * 3);
+  number[0] = 3;
+  number[1] = 4;
+  number[2] = 5;
+  int *squares = malloc(sizeof(int) * 3);
+  squares[0] = 9;
+  squares[1] = 16;
+  squares[2] = 25;
+  expected[0] = &squares[0];
+  expected[1] = &squares[1];
+  expected[2] = &squares[2];
+  add_to_list(list, &number[0]);
+  add_to_list(list, &number[1]);
+  add_to_list(list, &number[2]);
+  actual = map(list, &void_square);
+  result = assert_lists(expected, 3, actual, &assert_int, Success);
+  display_test_result(Success, result, "should give back the list mapped with the requested mapper");
+}
+
 void run_tests(void)
 {
   printf("running tests......\n\n");
@@ -141,6 +170,7 @@ void run_tests(void)
   test_add_to_start();
   test_insert_at();
   test_reverse();
+  test_map();
   printf("\n......finished tests\n");
 }
 
