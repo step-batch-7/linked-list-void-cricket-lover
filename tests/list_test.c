@@ -187,6 +187,19 @@ void test_filter(void)
   display_test_result(Success, result, "should give back the list filtered with the requested predicate");
 }
 
+void test_reduce(void)
+{
+  printf("#reduce\n");
+  List_ptr list = create_list();
+  Status result;
+  int *context = malloc(sizeof(int) * 3);
+  context[0] = 0;
+  int *expected[3] = {};
+  Element total = reduce(list, &context[0], &void_sum);
+  result = assert_lists(expected, 0, list, &assert_int, Success);
+  display_test_result(Success, result, "should give back the empty list when an empty list is given");
+}
+
 void run_tests(void)
 {
   printf("running tests......\n\n");
@@ -196,6 +209,7 @@ void run_tests(void)
   test_reverse();
   test_map();
   test_filter();
+  test_reduce();
   printf("\n......finished tests\n");
 }
 
