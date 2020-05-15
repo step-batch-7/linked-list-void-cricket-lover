@@ -12,5 +12,6 @@ int main()
   insert_at(list, &number[2], 1);
   display_list(list, &display_int);
   forEach(list, &display_int);
+  destroy_list(list);
   return 0;
 }
