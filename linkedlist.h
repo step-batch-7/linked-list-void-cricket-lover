@@ -82,6 +82,7 @@ Status match_int(Element, Element);
 Element remove_first_occurrence(List_ptr, Element element, Matcher matcher);
 List_ptr remove_all_occurrences(List_ptr, Element element, Matcher matcher); // Returns List of removed elements
 void selection_sort(List_ptr numbers, Comparator compare_data);
+void bubble_sort(List_ptr numbers, Comparator compare_data);
 
 Status add_unique(List_ptr list, Element element, Matcher matcher);
 

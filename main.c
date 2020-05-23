@@ -19,7 +19,7 @@ int main()
   add_to_list(list, &number[3]);
   add_to_list(list, &number[4]);
   display_list(list, &display_int);
-  selection_sort(list, &compare_int);
+  bubble_sort(list, &compare_int);
   display_list(list, &display_int);
   free(number);
   destroy_list(list);

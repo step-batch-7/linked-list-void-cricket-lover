@@ -355,6 +355,34 @@ void selection_sort(List_ptr numbers, Comparator compare_data)
   }
 }
 
+void bubble_sort(List_ptr numbers, Comparator compare_data)
+{
+  Node_ptr p_walk_outside = numbers->first;
+  while (p_walk_outside != NULL)
+  {
+    int swaps = 0;
+    Node_ptr temp = numbers->first;
+    Node_ptr p_walk_inside = temp->next;
+    while (p_walk_inside != NULL)
+    {
+      if (compare_data(p_walk_inside->element, temp->element))
+      {
+        Element least_value = p_walk_inside->element;
+        p_walk_inside->element = temp->element;
+        temp->element = least_value;
+        swaps++;
+      }
+      temp = temp->next;
+      p_walk_inside = p_walk_inside->next;
+    }
+    if (swaps == 0)
+    {
+      break;
+    }
+    p_walk_outside = p_walk_outside->next;
+  }
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;
