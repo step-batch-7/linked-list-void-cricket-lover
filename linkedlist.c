@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "linkedlist.h"
 
 void display_int(Element data)
@@ -27,6 +28,11 @@ Node_ptr create_node(Element value, Node_ptr next_reference)
   new_node->element = value;
   new_node->next = next_reference;
   return new_node;
+}
+
+Bool compare_int(Element a, Element b)
+{
+  return *(int *)a < *(int *)b;
 }
 
 Status add_to_start(List_ptr list, Element value)
@@ -324,6 +330,28 @@ void forEach(List_ptr list, ElementProcessor processor)
   {
     (*processor)(pair.current->element);
     pair.current = pair.current->next;
+  }
+}
+
+void selection_sort(List_ptr numbers, Comparator compare_data)
+{
+  Node_ptr p_walk_outside = numbers->first;
+  while (p_walk_outside != NULL)
+  {
+    Node_ptr temp = p_walk_outside;
+    Node_ptr p_walk_inside = p_walk_outside->next;
+    while (p_walk_inside != NULL)
+    {
+      if (compare_data(p_walk_inside->element, temp->element))
+      {
+        temp = p_walk_inside;
+      }
+      p_walk_inside = p_walk_inside->next;
+    }
+    Element least_value = temp->element;
+    temp->element = p_walk_outside->element;
+    p_walk_outside->element = least_value;
+    p_walk_outside = p_walk_outside->next;
   }
 }
 

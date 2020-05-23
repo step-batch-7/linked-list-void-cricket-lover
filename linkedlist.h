@@ -15,12 +15,18 @@ typedef enum
   Success
 } Status;
 
+typedef enum
+{
+  False,
+  True
+} Bool;
+
 typedef void *Element;
 
-typedef struct node
+typedef struct node1
 {
   Element element;
-  struct node *next;
+  struct node1 *next;
 } Node;
 
 typedef Node *Node_ptr;
@@ -46,11 +52,13 @@ typedef Element (*Reducer)(Element, Element);
 typedef void (*ElementProcessor)(Element);
 typedef Status (*Matcher)(Element, Element);
 typedef void (*DisplayData)(Element);
+typedef Bool (*Comparator)(Element, Element);
 
 Node_ptr create_node(Element value, Node_ptr next_reference);
 List_ptr create_list(void);
 void display_list(List_ptr list, DisplayData displayer);
 void display_int(Element data);
+Bool compare_int(Element a, Element b);
 
 Status add_to_list(List_ptr, Element);
 Status add_to_start(List_ptr, Element);
@@ -73,6 +81,7 @@ Element remove_at(List_ptr, int position);
 Status match_int(Element, Element);
 Element remove_first_occurrence(List_ptr, Element element, Matcher matcher);
 List_ptr remove_all_occurrences(List_ptr, Element element, Matcher matcher); // Returns List of removed elements
+void selection_sort(List_ptr numbers, Comparator compare_data);
 
 Status add_unique(List_ptr list, Element element, Matcher matcher);
 
