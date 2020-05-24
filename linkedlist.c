@@ -383,6 +383,35 @@ void bubble_sort(List_ptr numbers, Comparator compare_data)
   }
 }
 
+void insertion_sort(List_ptr numbers, Comparator compare_data)
+{
+  Node_ptr p_walk_outside = numbers->first;
+  int index_to_insert = 0;
+  int index_to_remove = 0;
+  while (p_walk_outside != NULL)
+  {
+    Node_ptr p_walk_remove = p_walk_outside->next;
+    Node_ptr p_walk_insert = numbers->first;
+    int j = 0;
+    Element removed = remove_at(numbers, index_to_remove);
+    while (p_walk_insert != p_walk_outside->next)
+    {
+      index_to_insert = index_to_remove;
+      if (compare_data(removed, p_walk_insert->element))
+      {
+        index_to_insert = j;
+        break;
+      }
+      j++;
+      p_walk_insert = p_walk_insert->next;
+    }
+
+    insert_at(numbers, removed, index_to_insert);
+    p_walk_outside = p_walk_outside->next;
+    index_to_remove++;
+  }
+}
+
 Status clear_list(List_ptr list)
 {
   Prev_Current_Pair pair;
